@@ -1,21 +1,18 @@
 package ru.geekbrains.server.auth;
 
+import org.springframework.stereotype.Component;
 import ru.geekbrains.server.User;
 import ru.geekbrains.server.persistance.UserRepository;
 
 import java.sql.SQLException;
 
+@Component("authService")
 public class AuthServiceJdbcImpl implements AuthService {
 
     private final UserRepository userRepository;
 
-    public AuthServiceJdbcImpl() throws SQLException {
-        this.userRepository = new UserRepository();
-        if (userRepository.getAllUsers().size() == 0) {
-            userRepository.insert(new User(-1, "ivan", "123"));
-            userRepository.insert(new User(-1, "petr", "345"));
-            userRepository.insert(new User(-1, "julia", "789"));
-        }
+    public AuthServiceJdbcImpl(UserRepository ur) {
+        userRepository = ur;
     }
 
     @Override
@@ -28,4 +25,5 @@ public class AuthServiceJdbcImpl implements AuthService {
         }
         return false;
     }
+
 }

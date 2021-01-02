@@ -13,11 +13,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <spring.version>5.3.1</spring.version>
     </properties>
 
     <modules>
         <module>lesson-01-basics</module>
         <module>lesson-01-network-chat</module>
+        <module>lesson-02-servlet-app</module>
+        <module>lesson-02-spring-mvc</module>
     </modules>
 
 </project>

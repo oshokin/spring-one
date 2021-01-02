@@ -1,3 +1,8 @@
-C:\Work\IdeaProjects\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\WebInitializer.java
-C:\Work\IdeaProjects\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\AppConfig.java
-C:\Work\IdeaProjects\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\controllers\FirstController.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\AppConfig.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\controllers\CustomerController.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\persist\Customer.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\persist\Product.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\persist\CustomerRepository.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\controllers\ProductController.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\persist\ProductRepository.java
+D:\Work\GB\spring-one\lesson-02-spring-mvc\src\main\java\ru\oshokin\WebInitializer.java

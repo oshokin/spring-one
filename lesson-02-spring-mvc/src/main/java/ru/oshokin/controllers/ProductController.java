@@ -25,20 +25,21 @@ public class ProductController {
     public String indexProductPage(Model model) {
         logger.info("Product page update");
         model.addAttribute("products", productRepository.findAll());
-        return "product";
+        return "products_list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable(value = "id") Long id, Model model) {
-        logger.info("Edit product with id {}", id);
+        logger.info("Editing product with id {}", id);
         model.addAttribute("product", productRepository.findById(id));
-        return "product_form";
+        return "product_update";
     }
 
     @GetMapping("/new")
     public String newProduct(Model model) {
-        // TODO дописать добавление аттрибута
-        return "product_form";
+        logger.info("Adding new product");
+        model.addAttribute("product", new Product());
+        return "product_create";
     }
 
     @PostMapping("/update")
@@ -47,9 +48,17 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @GetMapping("/delete")
-    public String deleteProduct(Model model) {
-        // TODO дописать удаление продукта
+    @PostMapping("/insert")
+    public String insertProduct(Product product) {
+        productRepository.insert(product);
         return "redirect:/product";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable(value = "id") Long id, Model model) {
+        logger.info("Deleting product with id {}", id);
+        productRepository.delete(id);
+        return "redirect:/product";
+    }
+
 }

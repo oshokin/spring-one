@@ -10,6 +10,7 @@
         <module name="lesson-02-servlet-app" />
         <module name="lesson-01-basics" />
         <module name="lesson-01-network-chat" />
+        <module name="lesson-03-hibernate" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -7,9 +7,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.oshokin.persist.entity.Customer;
-import ru.oshokin.persist.repo.CustomerRepository;
-import ru.oshokin.persist.repo.CustomerSpecification;
+import ru.oshokin.persist.entities.Customer;
+import ru.oshokin.persist.repos.CustomerRepository;
+import ru.oshokin.persist.repos.CustomerSpecification;
 
 @Controller
 @RequestMapping("/customer")
@@ -27,7 +27,6 @@ public class CustomerController {
         if (firstNameFilter != null && !firstNameFilter.isEmpty()) {
             spec = spec.and(CustomerSpecification.firstNameLike(firstNameFilter));
         }
-        // TODO добавить обработку параметров формы
         model.addAttribute("customers", customerRepository.findAll(spec));
         return "customers_list";
     }

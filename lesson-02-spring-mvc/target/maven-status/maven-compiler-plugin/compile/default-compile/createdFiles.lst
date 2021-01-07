@@ -1,8 +1,0 @@
-ru\oshokin\persist\ProductRepository.class
-ru\oshokin\persist\Customer.class
-ru\oshokin\WebInitializer.class
-ru\oshokin\controllers\ProductController.class
-ru\oshokin\controllers\CustomerController.class
-ru\oshokin\persist\CustomerRepository.class
-ru\oshokin\AppConfig.class
-ru\oshokin\persist\Product.class

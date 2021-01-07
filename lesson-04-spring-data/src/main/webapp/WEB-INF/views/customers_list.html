@@ -33,18 +33,16 @@
     </div>
 </nav>
 
-<form class="form-inline mt-3" method="get">
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="first-name-filter" class="sr-only">First name filter:</label>
-        <input th:value="${param.firstNameFilter}" type="text" class="form-control"
-               name="firstNameFilter" id="first-name-filter" placeholder="First name filter">
-    </div>
-    <!-- TODO добавить поля фильтров -->
-    <button type="submit" class="btn btn-primary mb-2">Apply</button>
-</form>
-
 <div class="container">
     <div class="row py-2">
+        <form class="form-inline mt-3" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="first-name-filter" class="sr-only">First name filter:</label>
+                <input th:value="${param.firstNameFilter}" type="text" class="form-control"
+                       name="firstNameFilter" id="first-name-filter" placeholder="First name filter">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
         <div class="col-12">
             <a class="btn btn-primary" th:href="@{/customer/new}">Add Customer</a>
         </div>

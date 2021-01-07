@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories("ru.oshokin.persist.repo")
+@EnableJpaRepositories("ru.oshokin.persist.repos")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class PersistConfig {
@@ -58,7 +58,7 @@ public class PersistConfig {
         factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         // Указание пакета, в котором будут находиться классы-сущности
-        factory.setPackagesToScan("ru.oshokin.persist.entity");
+        factory.setPackagesToScan("ru.oshokin.persist.entities");
 
         // Создание свойств для настройки Hibernate
         factory.setJpaProperties(jpaProperties());

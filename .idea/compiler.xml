@@ -6,12 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="lesson-02-spring-mvc" />
-        <module name="lesson-02-servlet-app" />
-        <module name="lesson-04-spring-data" />
         <module name="lesson-01-basics" />
         <module name="lesson-01-network-chat" />
+        <module name="lesson-02-spring-mvc" />
+        <module name="lesson-02-servlet-app" />
         <module name="lesson-03-hibernate" />
+        <module name="lesson-04-spring-data" />
+        <module name="lesson-05-thymeleaf" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

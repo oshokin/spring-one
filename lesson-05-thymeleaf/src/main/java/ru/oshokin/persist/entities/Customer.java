@@ -1,6 +1,7 @@
 package ru.oshokin.persist.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "customers")
@@ -10,9 +11,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "First name shouldn''t be blank")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotBlank(message = "Last name shouldn''t be blank")
     @Column(name = "last_name")
     private String lastName;
 

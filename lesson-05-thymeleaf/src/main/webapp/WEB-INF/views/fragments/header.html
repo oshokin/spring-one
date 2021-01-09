@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="navigation-bar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" th:href="@{/product}">O.Shokin Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/product}">Products</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/customer}">Customers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<th th:fragment="sort-column(id, presentation)">
+    <a th:href="@{/product(page=${products.number + 1},
+                            size=${selectedPageSize},
+                            nameFilter=${param.nameFilter},
+                            minPrice=${param.minPrice},
+                            maxPrice=${param.maxPrice},
+                            sortField=${id})}"
+       th:text="${presentation}">Field presentation</a>
+</th>
+
+</html>

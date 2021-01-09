@@ -1,6 +1,8 @@
 package ru.oshokin.persist.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,12 +13,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message =  "Name shouldn''t be blank")
     @Column
     private String name;
 
     @Column
     private String description;
 
+    @NotNull(message =  "Price shouldn''t be empty")
     @Column
     private BigDecimal price;
 

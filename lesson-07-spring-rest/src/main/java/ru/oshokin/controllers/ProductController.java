@@ -13,7 +13,6 @@ import ru.oshokin.persist.entities.Product;
 import ru.oshokin.services.ProductService;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,44 +32,21 @@ public class ProductController {
         Map<String, Object> parsedParameters = new HashMap<>(parameters.size() + defaultParametersCount);
 
         parsedParameters.put("nameFilter", parameters.get("nameFilter"));
-        parsedParameters.put("minPrice", castBigDecimal(parameters.get("minPrice")));
-        parsedParameters.put("maxPrice", castBigDecimal(parameters.get("maxPrice")));
+        parsedParameters.put("minPrice", CommonUtils.castBigDecimal(parameters.get("minPrice")));
+        parsedParameters.put("maxPrice", CommonUtils.castBigDecimal(parameters.get("maxPrice")));
 
-        parsedParameters.put("page", getIntegerOrDefault(parameters.get("page"), 1));
-        parsedParameters.put("size", getIntegerOrDefault(parameters.get("size"), DEFAULT_PAGE_SIZE));
+        parsedParameters.put("page", CommonUtils.getIntegerOrDefault(parameters.get("page"), 1));
+        parsedParameters.put("size", CommonUtils.getIntegerOrDefault(parameters.get("size"), DEFAULT_PAGE_SIZE));
         parsedParameters.put("sortField", parameters.getOrDefault("sortField", "id"));
-        parsedParameters.put("sortDirection", parameters.getOrDefault("sortDirection", "asc"));
+        parsedParameters.put("sortOrder", parameters.getOrDefault("sortOrder", "asc"));
 
-        model.addAttribute("selectedPageSize", parsedParameters.get("size"));
-        model.addAttribute("sortValue", parsedParameters.get("sortField"));
-        model.addAttribute("sortDirection", parsedParameters.get("sortDirection"));
+        model.addAttribute("sizeAttribute", parsedParameters.get("size"));
+        model.addAttribute("sortFieldAttribute", parsedParameters.get("sortField"));
+        model.addAttribute("sortOrderAttribute", parsedParameters.get("sortOrder"));
 
-        //полиморфизм в действии
         model.addAttribute("products", productService.applyFilter(parsedParameters));
 
         return "products_list";
-    }
-
-    private int getIntegerOrDefault(String value, int defaultValue) {
-        int funcResult;
-        try {
-            funcResult = Integer.parseInt(value);
-        } catch(NumberFormatException e) {
-            funcResult = defaultValue;
-        }
-        return funcResult;
-    }
-
-    private BigDecimal castBigDecimal(String value) {
-        BigDecimal funcResult = null;
-        if ((value != null) && !value.isEmpty()) {
-            try {
-                funcResult = new BigDecimal(value);
-            } catch (NumberFormatException e) {
-                funcResult = null;
-            }
-        }
-        return funcResult;
     }
 
     //С каждым добавлением еще одного параметра в метод,

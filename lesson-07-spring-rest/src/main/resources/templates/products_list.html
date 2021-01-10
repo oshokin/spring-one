@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/metadata.html :: head(pageTitle='Products')"/>
+
+<body>
+
+<nav th:replace="fragments/header.html :: navigation-bar"/>
+
+<div class="container">
+    <div class="row py-2">
+        <form class="form-inline mt-3" method="get">
+            <input type="hidden" name="size" th:value="${sizeAttribute}"/>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="name-filter" class="sr-only">Name filter:</label>
+                <input th:value="${param.nameFilter}" type="text" class="form-control"
+                       name="nameFilter" id="name-filter" placeholder="Name filter">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="min-price-filter" class="sr-only">Minimum price:</label>
+                <input th:value="${param.minPrice}" type="text" class="form-control"
+                       name="minPrice" id="min-price-filter" placeholder="Minimum price">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="max-price-filter" class="sr-only">Maximum price:</label>
+                <input th:value="${param.maxPrice}" type="text" class="form-control"
+                       name="maxPrice" id="max-price-filter" placeholder="Maximum price">
+            </div>
+            <input type="hidden" name="sortField" th:value="${sortFieldAttribute}"/>
+            <input type="hidden" name="sortOrder" th:value="${sortOrderAttribute}"/>
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
+        <div class="col-12">
+            <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
+        </div>
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th th:replace="fragments/header.html :: product-table-column(column='id', presentation='Id')"/>
+                    <th th:replace="fragments/header.html :: product-table-column(column='name', presentation='Name')"/>
+                    <th th:replace="fragments/header.html :: product-table-column(column='description', presentation='Description')"/>
+                    <th th:replace="fragments/header.html :: product-table-column(column='price', presentation='Price')"/>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${products.hasContent()}" th:each="product : ${products.content}">
+                    <th scope="row" th:text="${product.id}">1</th>
+                    <td th:text="${product.name}">ZX Spectrum</td>
+                    <td th:text="${product.description}">ZX Spectrum 128</td>
+                    <td th:text="${product.price}">$1</td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/product/edit/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" th:href="@{/product/delete/{id}(id = ${product.id})}"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                <tr th:unless="${products.hasContent()}">
+                    <td colspan="5">No matching products found</td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Pagination">
+                <div th:with="firstPage=${(products.number - 2) lt 0 ? 0 : products.number - 2},
+                            lastPage=${products.number + 2 gt (products.totalPages - 1) ? (products.totalPages - 1) : products.number + 2}">
+                    <ul class="pagination float-right">
+                        <li class="page-item" th:classappend="${products.number eq 0} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/product(page=${products.number lt 2 ? 1 : products.number},
+                                           size=${sizeAttribute},
+                                           nameFilter=${param.nameFilter},
+                                           minPrice=${param.minPrice},
+                                           maxPrice=${param.maxPrice},
+                                           sortField=${sortFieldAttribute},
+                                           sortOrder=${sortOrderAttribute})}"
+                               aria-label="Previous"
+                               title="Previous"
+                               rel="tooltip"><</a>
+                        </li>
+                        <li class="page-item" th:classappend="${i eq products.number + 1} ? 'active'"
+                            th:each="i: ${#numbers.sequence(firstPage + 1, lastPage + 1, 1)}">
+                            <a class="page-link"
+                               th:href="@{/product(page=${i},
+                                            size=${sizeAttribute},
+                                            nameFilter=${param.nameFilter},
+                                            minPrice=${param.minPrice},
+                                            maxPrice=${param.maxPrice},
+                                            sortField=${sortFieldAttribute},
+                                            sortOrder=${sortOrderAttribute})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip">Page number</a>
+                        </li>
+                        <li class="page-item" th:classappend="${products.number + 1 eq products.totalPages} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/product(page=${products.number + 2},
+                                            size=${sizeAttribute},
+                                            nameFilter=${param.nameFilter},
+                                            minPrice=${param.minPrice},
+                                            maxPrice=${param.maxPrice},
+                                            sortField=${sortFieldAttribute},
+                                            sortOrder=${sortOrderAttribute})}"
+                               aria-label="Next"
+                               title="Next"
+                               rel="tooltip">></a>
+                        </li>
+                    </ul>
+                </div>
+                <div th:if="${products.hasContent()}">
+                    <div class="pagination-detail float-left">
+                        <span class="pagination-info">Showing </span>
+                        <span class="page-list"><span class="btn-group dropdown dropup">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-expanded="false">
+                            <span class="page-size" th:text="${sizeAttribute}">5</span>
+                            <span class="caret"></span></button>
+                        <div class="dropdown-menu">
+                            <a th:replace="fragments/footer.html :: product-pagination-dropdown-item(itemsPerPage=5)"/>
+                            <a th:replace="fragments/footer.html :: product-pagination-dropdown-item(itemsPerPage=10)"/>
+                            <a th:replace="fragments/footer.html :: product-pagination-dropdown-item(itemsPerPage=15)"/>
+                            <a th:replace="fragments/footer.html :: product-pagination-dropdown-item(itemsPerPage=20)"/>
+                        </div></span> products per page</span></div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:replace="fragments/footer.html :: scripts"/>
+
+</body>
+
+</html>

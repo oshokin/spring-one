@@ -25,6 +25,7 @@
         <module>lesson-04-spring-data</module>
         <module>lesson-05-thymeleaf</module>
 		<module>lesson-06-spring-boot-app</module>
+		<module>lesson-07-spring-rest</module>
     </modules>
 
 </project>

@@ -1,4 +1,4 @@
-package ru.oshokin.controllers;
+package ru.oshokin.controllers.gui;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.oshokin.controllers.CommonUtils;
+import ru.oshokin.controllers.NotFoundException;
 import ru.oshokin.persist.entities.Product;
 import ru.oshokin.services.ProductService;
 

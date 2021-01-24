@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/metadata.html :: head(pageTitle='Login')"/>
+
+<body>
+
+<div class="container">
+    <h1>Enter O.Shokin store!</h1>
+    <div th:if="${param.error}">Bad credentials</div>
+    <div class="col-6">
+        <div class="card">
+            <header class="card-header">
+                <h4 class="card-title mt-2"><span>Enter credentials:</span></h4>
+            </header>
+            <article class="card-body">
+                <form method="post" th:action="@{/login}">
+                    <div class="form-group">
+                        <label for="username">E-mail:</label>
+                        <input type="text" class="form-control" name="username" id="username" th:required="required" th:autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" name="password" id="password" th:required="required"/>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Sign in"/>
+                </form>
+            </article>
+        </div>
+    </div>
+</div>
+
+<script th:replace="fragments/footer.html :: scripts"/>
+
+</body>
+
+</html>

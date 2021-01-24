@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,6 +67,7 @@ public class CustomerController {
         return "customer_update";
     }
 
+    @Secured({"ROLE_SUPERADMIN"})
     @GetMapping("/new")
     public String newCustomer(Model model) {
         logger.info("Adding new customer");
@@ -73,6 +75,7 @@ public class CustomerController {
         return "customer_create";
     }
 
+    @Secured({"ROLE_SUPERADMIN"})
     @PostMapping("/update")
     public String updateCustomer(@Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "customer_update";
@@ -80,6 +83,7 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    @Secured({"ROLE_SUPERADMIN"})
     @PostMapping("/insert")
     public String insertCustomer(@Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "customer_create";

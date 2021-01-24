@@ -27,7 +27,7 @@
             <input type="hidden" name="sortOrder" th:value="${sortOrderAttribute}"/>
             <button type="submit" class="btn btn-primary mb-2">Apply</button>
         </form>
-        <div class="col-12">
+        <div class="col-12" sec:authorize="hasRole('SUPERADMIN')">
             <a class="btn btn-primary" th:href="@{/customer/new}">Add Customer</a>
         </div>
         <div class="col-12">
@@ -38,7 +38,7 @@
                     <th th:replace="fragments/header.html :: customer-table-column(column='email', presentation='E-Mail')"/>
                     <th th:replace="fragments/header.html :: customer-table-column(column='firstName', presentation='First Name')"/>
                     <th th:replace="fragments/header.html :: customer-table-column(column='lastName', presentation='Last Name')"/>
-                    <th>Actions</th>
+                    <th sec:authorize="hasRole('SUPERADMIN'")>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,7 @@
                     <td th:text="${customer.email}">un_mapache_rabioso@hotmail.com</td>
                     <td th:text="${customer.firstName}">Oleg</td>
                     <td th:text="${customer.lastName}">Shokin</td>
-                    <td>
+                    <td sec:authorize="hasRole('SUPERADMIN')">
                         <a class="btn btn-success" th:href="@{/customer/edit/{id}(id = ${customer.id})}"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" th:href="@{/customer/delete/{id}(id = ${customer.id})}"><i class="far fa-trash-alt"></i></a>
                     </td>

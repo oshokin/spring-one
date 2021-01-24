@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/metadata.html :: head(pageTitle='Customers')"/>
+
+<body>
+
+<nav th:replace="fragments/header.html :: navigation-bar"/>
+
+<div class="container">
+    <div class="row py-2">
+        <form class="form-inline mt-3" method="get">
+            <input type="hidden" name="size" th:value="${sizeAttribute}"/>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="name-filter" class="sr-only">First name filter:</label>
+                <input th:value="${param.firstNameFilter}" type="text" class="form-control"
+                       name="firstNameFilter" id="name-filter" placeholder="First name filter">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="min-price-filter" class="sr-only">Last name filter:</label>
+                <input th:value="${param.lastNameFilter}" type="text" class="form-control"
+                       name="lastNameFilter" id="min-price-filter" placeholder="Last name filter">
+            </div>
+            <input type="hidden" name="sortField" th:value="${sortFieldAttribute}"/>
+            <input type="hidden" name="sortOrder" th:value="${sortOrderAttribute}"/>
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
+        <div class="col-12">
+            <a class="btn btn-primary" th:href="@{/customer/new}">Add Customer</a>
+        </div>
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th th:replace="fragments/header.html :: customer-table-column(column='id', presentation='Id')"/>
+                    <th th:replace="fragments/header.html :: customer-table-column(column='email', presentation='E-Mail')"/>
+                    <th th:replace="fragments/header.html :: customer-table-column(column='firstName', presentation='First Name')"/>
+                    <th th:replace="fragments/header.html :: customer-table-column(column='lastName', presentation='Last Name')"/>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${customers.hasContent()}" th:each="customer : ${customers.content}">
+                    <th scope="row" th:text="${customer.id}">1</th>
+                    <td th:text="${customer.email}">un_mapache_rabioso@hotmail.com</td>
+                    <td th:text="${customer.firstName}">Oleg</td>
+                    <td th:text="${customer.lastName}">Shokin</td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/customer/edit/{id}(id = ${customer.id})}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" th:href="@{/customer/delete/{id}(id = ${customer.id})}"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                <tr th:unless="${customers.hasContent()}">
+                    <td colspan="5">No matching customers found</td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Pagination">
+                <div th:with="firstPage=${(customers.number - 2) lt 0 ? 0 : customers.number - 2},
+                            lastPage=${customers.number + 2 gt (customers.totalPages - 1) ? (customers.totalPages - 1) : customers.number + 2}">
+                    <ul class="pagination float-right">
+                        <li class="page-item" th:classappend="${customers.number eq 0} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/customer(page=${customers.number lt 2 ? 1 : customers.number},
+                                           size=${sizeAttribute},
+                                           firstNameFilter=${param.firstNameFilter},
+                                           lastNameFilter=${param.lastNameFilter},
+                                           sortField=${sortFieldAttribute},
+                                           sortOrder=${sortOrderAttribute})}"
+                               aria-label="Previous"
+                               title="Previous"
+                               rel="tooltip"><</a>
+                        </li>
+                        <li class="page-item" th:classappend="${i eq customers.number + 1} ? 'active'"
+                            th:each="i: ${#numbers.sequence(firstPage + 1, lastPage + 1, 1)}">
+                            <a class="page-link"
+                               th:href="@{/customer(page=${i},
+                                            size=${sizeAttribute},
+                                            firstNameFilter=${param.firstNameFilter},
+                                            lastNameFilter=${param.lastNameFilter},
+                                            sortField=${sortFieldAttribute},
+                                            sortOrder=${sortOrderAttribute})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip">Page number</a>
+                        </li>
+                        <li class="page-item" th:classappend="${customers.number + 1 eq customers.totalPages} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/customer(page=${customers.number + 2},
+                                            size=${sizeAttribute},
+                                            firstNameFilter=${param.firstNameFilter},
+                                            lastNameFilter=${param.lastNameFilter},
+                                            sortField=${sortFieldAttribute},
+                                            sortOrder=${sortOrderAttribute})}"
+                               aria-label="Next"
+                               title="Next"
+                               rel="tooltip">></a>
+                        </li>
+                    </ul>
+                </div>
+                <div th:if="${customers.hasContent()}">
+                    <div class="pagination-detail float-left">
+                        <span class="pagination-info">Showing </span>
+                        <span class="page-list"><span class="btn-group dropdown dropup">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-expanded="false">
+                            <span class="page-size" th:text="${sizeAttribute}">5</span>
+                            <span class="caret"></span></button>
+                        <div class="dropdown-menu">
+                            <a th:replace="fragments/footer.html :: customer-pagination-dropdown-item(itemsPerPage=5)"/>
+                            <a th:replace="fragments/footer.html :: customer-pagination-dropdown-item(itemsPerPage=10)"/>
+                            <a th:replace="fragments/footer.html :: customer-pagination-dropdown-item(itemsPerPage=15)"/>
+                            <a th:replace="fragments/footer.html :: customer-pagination-dropdown-item(itemsPerPage=20)"/>
+                        </div></span> customers per page</span></div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:replace="fragments/footer.html :: scripts"/>
+
+</body>
+
+</html>

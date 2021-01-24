@@ -12,6 +12,7 @@
         <module name="lesson-05-thymeleaf" />
         <module name="lesson-06-spring-boot-app" />
         <module name="lesson-02-spring-mvc" />
+        <module name="lesson-08-spring-security" />
         <module name="lesson-02-servlet-app" />
         <module name="lesson-01-network-chat" />
         <module name="lesson-03-hibernate" />
@@ -25,6 +26,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="lesson-06-spring-boot-app" options="-parameters" />
       <module name="lesson-07-spring-rest" options="-parameters" />
+      <module name="lesson-08-spring-security" options="-parameters" />
     </option>
   </component>
 </project>

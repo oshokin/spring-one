@@ -32,7 +32,7 @@
             <input type="hidden" name="sortOrder" th:value="${sortOrderAttribute}"/>
             <button type="submit" class="btn btn-primary mb-2">Apply</button>
         </form>
-        <div class="col-12">
+        <div class="col-12" sec:authorize="hasRole('SUPERADMIN')">
             <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
         </div>
         <div class="col-12">
@@ -43,7 +43,7 @@
                     <th th:replace="fragments/header.html :: product-table-column(column='name', presentation='Name')"/>
                     <th th:replace="fragments/header.html :: product-table-column(column='description', presentation='Description')"/>
                     <th th:replace="fragments/header.html :: product-table-column(column='price', presentation='Price')"/>
-                    <th>Actions</th>
+                    <th sec:authorize="hasRole('SUPERADMIN')">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@
                     <td th:text="${product.name}">ZX Spectrum</td>
                     <td th:text="${product.description}">ZX Spectrum 128</td>
                     <td th:text="${product.price}">$1</td>
-                    <td>
+                    <td sec:authorize="hasRole('SUPERADMIN')">
                         <a class="btn btn-success" th:href="@{/product/edit/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" th:href="@{/product/delete/{id}(id = ${product.id})}"><i class="far fa-trash-alt"></i></a>
                     </td>
